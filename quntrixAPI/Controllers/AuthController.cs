@@ -36,7 +36,7 @@ namespace quntrixAPI.Controllers
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.users.Add(user);
+             _context.users.Add(user);
 
             await _context.SaveChangesAsync();
 
@@ -52,18 +52,23 @@ namespace quntrixAPI.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>>Login(UserDto request)
         {
-if(user.Username != request.Username)
-            {
-                return BadRequest("User not found.");
-            }
 
-if(!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-            {
-                return BadRequest("Bad password.");
-            }
+           var user = _context.users.FirstOrDefault(u => u.Username == request.Username);
 
-            string token = CreateToken(user);
-            return Ok(token);
+
+
+                if (user==null)
+                {
+                    return BadRequest("User not found.");
+                }
+
+                if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+                {
+                    return BadRequest("Bad password.");
+                }
+
+                string token = CreateToken(user);
+                return Ok(token);
 
         }
 
