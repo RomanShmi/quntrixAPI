@@ -36,7 +36,8 @@ namespace quntrixAPI.Controllers
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Users.Add(user);
+            _context.users.Add(user);
+
             await _context.SaveChangesAsync();
 
 

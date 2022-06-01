@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 namespace quntrixAPI
 {
    
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : DbContext
     {
         private static IConfigurationRoot _configuration;
 
         public DbSet<User> users { get; set; }
+        public DbSet<UserDto> usersDto { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
