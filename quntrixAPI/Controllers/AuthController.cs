@@ -11,12 +11,15 @@ namespace quntrixAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        public static User user= new User();
+        public static User user = new User();
+
+
         private readonly IConfiguration _configuration;
-        
-        public AuthController(IConfiguration configuration)
+        private readonly AppDbContext _context;
+        public AuthController(IConfiguration configuration, AppDbContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
         
         
@@ -27,9 +30,19 @@ namespace quntrixAPI.Controllers
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             
+            
+          //  public User user1 = new User();
             user.Username=request.Username;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+
+
+
+
 
             return Ok(user);
 
