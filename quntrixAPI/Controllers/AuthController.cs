@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -44,8 +45,8 @@ namespace quntrixAPI.Controllers
 
 
 
-
-            return Ok(user);
+          Console.WriteLine(JsonConvert.SerializeObject(user));
+           return Ok(user);
 
         }
 
