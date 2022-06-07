@@ -1,13 +1,17 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home+++++++++++++++++page";
 }
 
 <div class="agenda">
     <h1>My Conference @System.DateTime.Now.Year</h1>
    <ul class="nav nav-pills mb-3">
-    @foreach (var day in Model.DayOffsets)
+   
+       
+       
+       
+       @foreach (var day in Model.DayOffsets)
     {
         <li role="presentation" class="nav-item">
             <a class="nav-link @(Model.CurrentDayOffset == day.Offset ? "active" : null)" asp-route-day="@day.Offset">@day.DayofWeek?.ToString()</a>

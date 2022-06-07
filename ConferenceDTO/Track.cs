@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ConferenceDTO;
+namespace ConferenceDTO
+    {
 public class Track
 {
     public int Id { get; set; }
@@ -8,4 +9,4 @@ public class Track
     [Required]
     [StringLength(200)]
     public string? Name { get; set; }
-}
+} }

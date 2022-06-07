@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -56,8 +57,6 @@ namespace quntrixAPI.Controllers
 
            var user = _context.users.FirstOrDefault(u => u.Username == request.Username);
 
-
-
                 if (user==null)
                 {
                     return BadRequest("User not found.");
@@ -69,15 +68,22 @@ namespace quntrixAPI.Controllers
                 }
 
                 string token = CreateToken(user);
+
+
                 return Ok(token);
 
         }
 
         private string CreateToken(User user)
         {
+            IdentityOptions io = new IdentityOptions();
+
+
             List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Username)
+            {   new Claim(io.ClaimsIdentity.UserIdClaimType, (user.Id).ToString()),
+                new Claim(io.ClaimsIdentity.UserIdClaimType, user.Username),
+                new Claim(ClaimTypes.Name, user.Username),
+               new Claim (ClaimTypes.Role, "admin")
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
@@ -85,7 +91,7 @@ namespace quntrixAPI.Controllers
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddSeconds(45),
                 signingCredentials: cred);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
@@ -114,11 +120,5 @@ using (var hmac= new HMACSHA512(passwordSalt))
                 var computedHash= hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(passwordHash);
             }
-        }
-
-
-
-
-
-    }
+        }}
 }

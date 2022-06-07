@@ -1,9 +1,11 @@
 ﻿using quntrixAPI.Data;
 using ConferenceDTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace quntrixAPI.Endpoints
 {
+   [Authorize]
     public static class SearchEndpoints
     {
         public static void MapSearchEndpoints(this IEndpointRouteBuilder routes)

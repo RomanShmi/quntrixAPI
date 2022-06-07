@@ -1,10 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using quntrixAPI.Data;
 using ConferenceDTO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace quntrixAPI.EndPoints
 {
-    public static class AttendeeEndpoints
+   
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
+       public static class AttendeeEndpoints
     {
         public static void MapAttendeeEndpoints(this IEndpointRouteBuilder routes)
         {

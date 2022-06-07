@@ -6,12 +6,12 @@ using quntrixAPI.Data;
 namespace quntrixAPI
 {
    
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         private static IConfigurationRoot _configuration;
 
         public DbSet<User> users { get; set; }
-        public DbSet<UserDto> usersDto { get; set; }
+        
 
         
 

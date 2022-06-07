@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Front.Services;
 using ConferenceDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Front.Pages
 {
@@ -23,6 +24,7 @@ namespace Front.Pages
             _logger = logger;
             _apiClient = apiClient;
         }
+
 
         public async Task OnGet(int day = 0)
         {

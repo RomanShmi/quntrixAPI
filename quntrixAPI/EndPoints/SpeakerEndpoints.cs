@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using quntrixAPI.Data;
 
 namespace quntrixAPI.Endpoints;
 
+
+[Authorize]
 public static class SpeakerEndpoints
 {
     public static void MapSpeakerEndpoints(this IEndpointRouteBuilder routes)
