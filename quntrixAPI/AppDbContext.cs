@@ -6,7 +6,7 @@ using quntrixAPI.Data;
 namespace quntrixAPI
 {
    
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : DbContext
     {
         private static IConfigurationRoot _configuration;
 
